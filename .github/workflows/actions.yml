@@ -13,7 +13,7 @@ jobs:
     name: Build
     steps:
       - name: Test
-        run: ls && mkdir dist && echo "TEST" > dist/index.html
+        run: ls && mkdir dist && cp index.html dist
       - name: Upload dist
         uses: actions/upload-artifact@v3
         with:
