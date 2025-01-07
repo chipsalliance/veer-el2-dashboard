@@ -1,0 +1,41 @@
+name: Build and deploy dashboard
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: debian:bookworm
+    name: Build
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Add coverview
+        run: ls && mkdir dist && sed -i 's/DATA_PLACEHOLDER/https:\/\/chipsalliance\.github\.io\/Cores-VeeR-EL2\/html\/main\/data\.zip/' index.html && cp index.html dist
+      - name: Upload dist
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverview
+          path: ./dist/
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build]
+    permissions:
+      contents: write
+      repository-projects: write
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: coverview
+          path: ./dist
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
