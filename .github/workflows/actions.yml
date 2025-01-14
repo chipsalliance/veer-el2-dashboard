@@ -15,7 +15,7 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v4
       - name: Add coverview
-        run: ls && mkdir dist && sed -i 's/DATA_PLACEHOLDER/https:\/\/chipsalliance\.github\.io\/Cores-VeeR-EL2\/html\/main\/data\.zip/' index.html && cp index.html dist
+        run: ls && mkdir dist && cp index.html dist
       - name: Upload dist
         uses: actions/upload-artifact@v3
         with:
