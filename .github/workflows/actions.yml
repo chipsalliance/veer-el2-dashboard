@@ -15,7 +15,7 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v4
       - name: Add coverview
-        run: ls && mkdir dist && cp index.html dist
+        run: ls && mkdir dist && cp index.html dist && cp index_group.html dist
       - name: Upload dist
         uses: actions/upload-artifact@v3
         with:
