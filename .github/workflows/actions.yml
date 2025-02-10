@@ -17,7 +17,7 @@ jobs:
       - name: Add coverview
         run: ls && mkdir dist && cp index.html dist && cp index_group.html dist
       - name: Upload dist
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverview
           path: ./dist/
@@ -30,12 +30,12 @@ jobs:
       repository-projects: write
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: coverview
           path: ./dist
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
